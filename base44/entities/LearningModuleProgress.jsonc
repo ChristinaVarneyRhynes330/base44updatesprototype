@@ -1,0 +1,72 @@
+{
+  "name": "LearningModuleProgress",
+  "type": "object",
+  "description": "A parent's progress and reflection for one Learning Lab module.",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "App user id"
+    },
+    "module_number": {
+      "type": "number",
+      "description": "1 through 10"
+    },
+    "module_title": {
+      "type": "string"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "user_reflection_note": {
+      "type": "string",
+      "description": "The parent's own words about the lesson"
+    }
+  },
+  "required": [
+    "module_number",
+    "module_title",
+    "completed"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,360 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* shadcn surfaces, derived from the approved swatch */
+    --background: 180 3% 8%; /* #131414 */
+    --foreground: 12 46% 95%; /* #F8F0EE */
+    --card: 0 11% 9%; /* #1A1515 */
+    --card-foreground: 12 46% 95%;
+    --popover: 0 11% 9%;
+    --popover-foreground: 12 46% 95%;
+    --primary: 5 44% 83%; /* #E6C2BF */
+    --primary-foreground: 180 3% 8%;
+    --secondary: 11 17% 19%; /* #3A2C29 */
+    --secondary-foreground: 10 59% 94%;
+    --muted: 11 15% 17%;
+    --muted-foreground: 9 34% 68%;
+    --accent: 5 15% 38%; /* #7A4E4A */
+    --accent-foreground: 10 59% 94%;
+    --destructive: 357 23% 50%; /* #9B6364 */
+    --destructive-foreground: 10 59% 94%;
+    --border: 24 20% 30%; /* dimmed #8E6D57 */
+    --input: 24 18% 26%;
+    --ring: 39 46% 68%; /* #D4B483 */
+    --chart-1: 39 46% 68%;
+    --chart-2: 5 44% 83%;
+    --chart-3: 357 23% 50%;
+    --chart-4: 152 8% 58%;
+    --chart-5: 93 12% 63%;
+    --radius: 0.75rem;
+    --font-heading: "Cormorant Garamond", Georgia, serif;
+    --font-body: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+    --font-display: "Cinzel", "Cormorant Garamond", serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    /* ---------- Approved brand swatch (16 colors, RGB channels) ---------- */
+    --brand-obsidian: 19 20 20; /* #131414 primary dark base */
+    --brand-glass: 26 21 21; /* #1A1515 glass & modal fill */
+    --brand-espresso: 58 44 41; /* #3A2C29 espresso hover & tint */
+    --brand-tint: 122 78 74; /* #7A4E4A warm tinted card fill */
+    --brand-verified: 141 157 149; /* #8D9D95 verified / calm accent */
+    --brand-rose: 176 120 120; /* #B07878 rose metallic accent */
+    --brand-gold: 212 180 131; /* #D4B483 champagne gold highlight */
+    --brand-glint: 230 194 191; /* #E6C2BF specular border glint */
+    --brand-body: 249 235 229; /* #F9EBE5 high-contrast body text */
+    --brand-heading: 248 240 238; /* #F8F0EE headings & button labels */
+    --brand-archival: 251 243 238; /* #FBF3EE archival document surface */
+    --brand-command: 43 59 75; /* #2B3B4B case command surface */
+    --brand-preservation: 155 99 100; /* #9B6364 preservation alert accent */
+    --brand-cream: 247 238 223; /* #F7EEDF warm cream surface/text */
+    --brand-pathway: 124 142 114; /* #7C8E72 pathway & status accent */
+    --brand-taupe: 142 109 87; /* #8E6D57 taupe border & trim */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    @apply font-body antialiased;
+    background-color: rgb(var(--brand-obsidian));
+    color: rgb(var(--brand-body));
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+    letter-spacing: -0.01em;
+    color: rgb(var(--brand-heading));
+  }
+
+  ::selection {
+    background: rgb(var(--brand-glint) / 0.3);
+    color: rgb(var(--brand-obsidian));
+  }
+
+  ::placeholder {
+    color: rgb(var(--brand-body) / 0.45);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--brand-gold) / 0.75);
+    outline-offset: 2px;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  @media (min-width: 1024px) {
+    input,
+    textarea,
+    select {
+      font-size: 14px;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--brand-glint) / 0.16);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--brand-glint) / 0.3);
+  }
+}
+
+@layer components {
+  /* ---------- Botanical velvet canvas ---------- */
+  .botanical-backdrop {
+    background-color: rgb(var(--brand-obsidian));
+    background-image:
+      radial-gradient(900px 560px at 8% -8%, rgb(var(--brand-tint) / 0.26), transparent 62%),
+      radial-gradient(760px 620px at 96% 4%, rgb(var(--brand-gold) / 0.1), transparent 60%),
+      radial-gradient(700px 700px at 58% 112%, rgb(var(--brand-espresso) / 0.55), transparent 68%),
+      linear-gradient(165deg, #131414 0%, #171313 48%, #1a1515 100%);
+  }
+
+  .botanical-veil {
+    background-image:
+      radial-gradient(circle at 16% 28%, rgb(var(--brand-glint) / 0.05) 0%, transparent 36%),
+      radial-gradient(circle at 82% 64%, rgb(var(--brand-rose) / 0.06) 0%, transparent 42%),
+      repeating-linear-gradient(
+        118deg,
+        rgb(var(--brand-body) / 0.014) 0px,
+        rgb(var(--brand-body) / 0.014) 1px,
+        transparent 1px,
+        transparent 9px
+      );
+  }
+
+  /* ---------- Glass tiers ---------- */
+  .glass-clear {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--brand-body) / 0.07) 0%,
+      rgb(var(--brand-espresso) / 0.2) 52%,
+      rgb(var(--brand-obsidian) / 0.34) 100%
+    );
+    backdrop-filter: blur(10px) saturate(112%);
+    -webkit-backdrop-filter: blur(10px) saturate(112%);
+    border: 1px solid rgb(var(--brand-glint) / 0.2);
+    box-shadow: inset 0 1px 0 rgb(var(--brand-body) / 0.18);
+  }
+
+  .glass-tinted {
+    background: linear-gradient(
+      155deg,
+      rgb(var(--brand-tint) / 0.26) 0%,
+      rgb(var(--brand-espresso) / 0.42) 55%,
+      rgb(var(--brand-glass) / 0.72) 100%
+    );
+    backdrop-filter: blur(16px) saturate(125%);
+    -webkit-backdrop-filter: blur(16px) saturate(125%);
+    border: 1px solid rgb(var(--brand-glint) / 0.32);
+    box-shadow: 0 12px 32px rgb(var(--brand-obsidian) / 0.5),
+      inset 0 1px 0 rgb(var(--brand-body) / 0.2);
+  }
+
+  .glass-frosted {
+    background: linear-gradient(
+      168deg,
+      rgb(var(--brand-glass) / 0.68) 0%,
+      rgb(var(--brand-obsidian) / 0.88) 100%
+    );
+    backdrop-filter: blur(22px) saturate(118%);
+    -webkit-backdrop-filter: blur(22px) saturate(118%);
+    border: 1px solid rgb(var(--brand-glint) / 0.2);
+    box-shadow: 0 14px 40px rgb(var(--brand-obsidian) / 0.55),
+      inset 0 1px 0 rgb(var(--brand-body) / 0.13);
+  }
+
+  /* Archival document surface — the reading plane for originals and citations. */
+  .surface-parchment {
+    background-color: rgb(var(--brand-archival));
+    background-image: linear-gradient(
+      180deg,
+      rgb(var(--brand-cream) / 0.55) 0%,
+      rgb(var(--brand-archival) / 0) 45%
+    );
+    color: rgb(var(--brand-espresso));
+    box-shadow: 0 16px 40px rgb(var(--brand-obsidian) / 0.55),
+      inset 0 1px 0 rgb(255 255 255 / 0.7), inset 0 0 40px rgb(var(--brand-taupe) / 0.1);
+  }
+
+  /* Case command surface — courtroom mode and command-level panels. */
+  .surface-command {
+    background-color: rgb(var(--brand-command) / 0.36);
+    border: 1px solid rgb(var(--brand-taupe) / 0.5);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* ---------- Champagne metallic frame ---------- */
+  .frame-gold {
+    border: 1px solid rgb(var(--brand-glint) / 0.28);
+    box-shadow: 0 10px 30px rgb(var(--brand-obsidian) / 0.45),
+      0 0 18px rgb(var(--brand-gold) / 0.1), inset 0 1px 0 rgb(var(--brand-body) / 0.16);
+  }
+
+  .frame-gold-active {
+    border: 1px solid rgb(var(--brand-body) / 0.7);
+    box-shadow: 0 0 26px rgb(var(--brand-gold) / 0.3), inset 0 0 18px rgb(var(--brand-glint) / 0.16);
+  }
+
+  .reactive-card {
+    position: relative;
+    transition: border-color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1), transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reactive-card:hover {
+    border-color: rgb(var(--brand-glint) / 0.72);
+    box-shadow: 0 16px 38px rgb(var(--brand-obsidian) / 0.6),
+      0 0 30px rgb(var(--brand-glint) / 0.26), inset 0 1px 0 rgb(var(--brand-body) / 0.24);
+    transform: translateY(-2px);
+  }
+
+  .reactive-card:active {
+    transform: translateY(0);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-foil {
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--brand-rose)) 0%,
+      rgb(var(--brand-glint)) 48%,
+      rgb(var(--brand-gold)) 100%
+    );
+    color: rgb(var(--brand-obsidian));
+    box-shadow: 0 0 22px rgb(var(--brand-gold) / 0.32), inset 0 1px 0 rgb(255 255 255 / 0.55);
+    transition: box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 280ms cubic-bezier(0.22, 1, 0.36, 1), filter 280ms ease;
+  }
+
+  .btn-foil:hover {
+    box-shadow: 0 0 34px rgb(var(--brand-glint) / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.65);
+    transform: translateY(-1px);
+    filter: saturate(1.06);
+  }
+
+  .btn-foil:active {
+    transform: translateY(0);
+    box-shadow: 0 0 18px rgb(var(--brand-gold) / 0.28), inset 0 1px 0 rgb(255 255 255 / 0.45);
+  }
+
+  .btn-ghost {
+    border: 1px solid rgb(var(--brand-glint) / 0.34);
+    color: rgb(var(--brand-body));
+    transition: border-color 280ms ease, box-shadow 280ms ease, background-color 280ms ease;
+  }
+
+  .btn-ghost:hover {
+    border-color: rgb(var(--brand-body) / 0.78);
+    background-color: rgb(var(--brand-body) / 0.05);
+    box-shadow: 0 0 22px rgb(var(--brand-glint) / 0.26);
+  }
+
+  /* ---------- Text roles ---------- */
+  .t-body {
+    color: rgb(var(--brand-body));
+  }
+  .t-soft {
+    color: rgb(var(--brand-body) / 0.72);
+  }
+  .t-faint {
+    color: rgb(var(--brand-body) / 0.52);
+  }
+  .t-rose {
+    color: rgb(var(--brand-glint));
+  }
+  .t-gold {
+    color: rgb(var(--brand-gold));
+  }
+  .t-cream {
+    color: rgb(var(--brand-cream));
+  }
+  .t-verified {
+    color: rgb(var(--brand-verified));
+  }
+
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(var(--brand-gold) / 0.55) 50%,
+      transparent 100%
+    );
+  }
+
+  .hairline {
+    border-color: rgb(var(--brand-glint) / 0.18);
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase;
+    color: rgb(var(--brand-gold));
+    letter-spacing: 0.2em;
+  }
+
+  .foil-text {
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--brand-body)) 0%,
+      rgb(var(--brand-glint)) 42%,
+      rgb(var(--brand-gold)) 72%,
+      rgb(var(--brand-cream)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .parchment-mark {
+    background: rgb(var(--brand-glint) / 0.7);
+    border-radius: 3px;
+    padding: 1px 3px;
+    box-shadow: 0 0 12px rgb(var(--brand-gold) / 0.35);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

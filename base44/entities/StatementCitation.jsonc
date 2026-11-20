@@ -1,0 +1,98 @@
+{
+  "name": "StatementCitation",
+  "type": "object",
+  "description": "An exact quoted statement from a record, tagged by epistemic type and page.",
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "description": "CaseWorkspace id"
+    },
+    "record_id": {
+      "type": "string",
+      "description": "EvidenceRecord id the quote comes from"
+    },
+    "page_number": {
+      "type": "number",
+      "description": "Page the quote appears on, starting at 1"
+    },
+    "exact_quote": {
+      "type": "string",
+      "description": "Verbatim sentence from the record"
+    },
+    "epistemic_type": {
+      "type": "string",
+      "enum": [
+        "Allegation",
+        "Observation",
+        "Parent Recollection",
+        "Professional Opinion",
+        "Inference",
+        "Court Finding"
+      ],
+      "enumColors": [
+        "red",
+        "yellow",
+        "green",
+        "purple",
+        "gray",
+        "blue"
+      ]
+    },
+    "linked_issue_id": {
+      "type": "string",
+      "description": "InvestigativeIssue id this statement informs"
+    },
+    "note": {
+      "type": "string",
+      "description": "Optional parent note about why this quote matters"
+    }
+  },
+  "required": [
+    "case_id",
+    "record_id",
+    "page_number",
+    "exact_quote",
+    "epistemic_type"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

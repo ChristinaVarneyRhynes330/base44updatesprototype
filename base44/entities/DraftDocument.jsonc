@@ -1,0 +1,94 @@
+{
+  "name": "DraftDocument",
+  "type": "object",
+  "description": "A source-linked draft that is never presented as filed or served.",
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "description": "CaseWorkspace id"
+    },
+    "title": {
+      "type": "string"
+    },
+    "draft_type": {
+      "type": "string",
+      "enum": [
+        "Attorney Questions",
+        "Court Questions",
+        "Record Request",
+        "Hearing Packet",
+        "Timeline Summary",
+        "Live Hearing Note"
+      ],
+      "enumColors": [
+        "blue",
+        "purple",
+        "purple",
+        "yellow",
+        "green",
+        "red"
+      ]
+    },
+    "content": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "default": "DRAFT - NOT FILED"
+    },
+    "linked_citation_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "case_id",
+    "title",
+    "draft_type",
+    "content",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

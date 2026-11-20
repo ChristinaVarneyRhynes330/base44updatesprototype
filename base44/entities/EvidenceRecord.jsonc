@@ -1,0 +1,144 @@
+{
+  "name": "EvidenceRecord",
+  "type": "object",
+  "description": "A single uploaded or transcribed case record (order, report, log, message).",
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "description": "CaseWorkspace id this record belongs to"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short record title, e.g. Meeting note \u00b7 May 6"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Court Order",
+        "Petition",
+        "Case Plan",
+        "Agency Report",
+        "Medical Record",
+        "Visitation Log",
+        "Email",
+        "Text Message",
+        "Photo"
+      ],
+      "enumColors": [
+        "blue",
+        "purple",
+        "pink",
+        "yellow",
+        "red",
+        "green",
+        "blue",
+        "purple",
+        "gray"
+      ]
+    },
+    "source_author": {
+      "type": "string",
+      "description": "Who wrote or issued the record"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When the described event happened"
+    },
+    "documented_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When someone wrote the record down"
+    },
+    "raw_text": {
+      "type": "string",
+      "description": "Full text of the record"
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Page-by-page text, used by the source viewer"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "Private file uri for the original upload"
+    },
+    "original_filename": {
+      "type": "string",
+      "description": "Filename of the preserved original as received"
+    },
+    "file_size_bytes": {
+      "type": "number",
+      "description": "Size of the preserved original in bytes"
+    },
+    "checksum_sha256": {
+      "type": "string",
+      "description": "SHA-256 fingerprint captured at upload; identifies the preserved original"
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "verified",
+        "discrepancy",
+        "pending",
+        "missing_context"
+      ],
+      "enumColors": [
+        "green",
+        "red",
+        "yellow",
+        "gray"
+      ],
+      "default": "pending"
+    }
+  },
+  "required": [
+    "case_id",
+    "title",
+    "category",
+    "verification_status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

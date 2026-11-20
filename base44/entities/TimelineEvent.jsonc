@@ -1,0 +1,85 @@
+{
+  "name": "TimelineEvent",
+  "type": "object",
+  "description": "A dated event with both the date it happened and the date it was documented.",
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "description": "CaseWorkspace id"
+    },
+    "title": {
+      "type": "string"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When the event happened"
+    },
+    "documented_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When the event was written down"
+    },
+    "description": {
+      "type": "string"
+    },
+    "discrepancy_flag": {
+      "type": "boolean",
+      "default": false
+    },
+    "linked_record_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "EvidenceRecord ids supporting this event"
+    }
+  },
+  "required": [
+    "case_id",
+    "title",
+    "event_date",
+    "discrepancy_flag"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

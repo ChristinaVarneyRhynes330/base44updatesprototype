@@ -1,0 +1,100 @@
+{
+  "name": "InvestigativeIssue",
+  "type": "object",
+  "description": "A structured investigation of one unresolved concern in the case.",
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "description": "CaseWorkspace id"
+    },
+    "title": {
+      "type": "string",
+      "description": "e.g. Disputed Visitation & Meeting Date Record"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "what_agrees": {
+      "type": "string",
+      "description": "Where the accounts agree"
+    },
+    "what_contradicts": {
+      "type": "string",
+      "description": "Where the accounts differ"
+    },
+    "missing_records_needed": {
+      "type": "string"
+    },
+    "alternative_explanations": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Open",
+        "Needs Records",
+        "Ready for Counsel",
+        "Resolved"
+      ],
+      "enumColors": [
+        "yellow",
+        "red",
+        "blue",
+        "green"
+      ],
+      "default": "Open"
+    },
+    "linked_citation_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "case_id",
+    "title",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

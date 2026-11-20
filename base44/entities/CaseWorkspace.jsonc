@@ -1,0 +1,107 @@
+{
+  "name": "CaseWorkspace",
+  "type": "object",
+  "description": "A private case workspace holding one child welfare matter.",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Workspace title, e.g. Demo Case: Disputed Visitation & Service Plan"
+    },
+    "case_number": {
+      "type": "string",
+      "description": "Court or agency case number"
+    },
+    "jurisdiction": {
+      "type": "string",
+      "description": "Court, county and division"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Intake",
+        "Closed"
+      ],
+      "enumColors": [
+        "green",
+        "yellow",
+        "gray"
+      ],
+      "default": "Active"
+    },
+    "representation": {
+      "type": "string",
+      "enum": [
+        "Represented by counsel",
+        "Limited-scope or standby counsel",
+        "Self-represented",
+        "Representation uncertain or changing"
+      ],
+      "enumColors": [
+        "purple",
+        "blue",
+        "green",
+        "yellow"
+      ],
+      "default": "Represented by counsel",
+      "description": "How the parent appears in this matter; changes the voice and outputs of the workspace"
+    },
+    "counsel_name": {
+      "type": "string",
+      "description": "Attorney or legal aid name, when represented"
+    },
+    "counsel_contact": {
+      "type": "string",
+      "description": "Attorney email or phone, when represented"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional context the parent wants kept with the case"
+    }
+  },
+  "required": [
+    "title",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

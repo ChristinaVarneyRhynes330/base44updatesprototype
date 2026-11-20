@@ -1,0 +1,84 @@
+{
+  "name": "HearingNote",
+  "type": "object",
+  "description": "What was requested, discussed and ruled at a hearing, plus post-hearing follow-up.",
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "description": "CaseWorkspace id"
+    },
+    "hearing_title": {
+      "type": "string"
+    },
+    "hearing_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "requested": {
+      "type": "string",
+      "description": "What the parent or counsel requested"
+    },
+    "discussed": {
+      "type": "string",
+      "description": "What was discussed"
+    },
+    "ruled": {
+      "type": "string",
+      "description": "What the judge ruled, as understood in the room"
+    },
+    "follow_up": {
+      "type": "string",
+      "description": "What still needs verification against the written order"
+    },
+    "compared_with_order": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "case_id",
+    "hearing_title",
+    "hearing_date"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
